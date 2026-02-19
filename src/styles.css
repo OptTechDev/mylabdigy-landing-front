@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+    --font-display: "Poppins", "sans-serif";
+    --color-celeste-fuerte: #37A1CD;
+    --color-celeste-suave: #4DC0D7;
+    --color-verde-fuerte: #28ACA4;
+    --color-verde-suave: #2EC6B4;
+    --color-morado-fuerte: #726ACE;
+    --color-morado-suave: #9383F2;
+    --color-azul-fuerte: #405EAA;
+    --color-azul-suave: #607DC7;
+    --color-rosa-fuerte: #8157A3;
+    --color-rosa-suave: #B686CD;
+}
