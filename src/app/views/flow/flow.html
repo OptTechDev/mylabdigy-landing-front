@@ -4,7 +4,7 @@
     <h2 class="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">Proceso claro desde configuración hasta entrega de resultados.</h2>
     <div class="space-y-4">
       @for (step of steps(); track step.title; let index = $index) {
-        <div class="step-card flex gap-4 rounded-[1.5rem] p-5">
+        <div class="step-card flex flex-col gap-4 rounded-[1.5rem] p-5 sm:flex-row">
           <div class="step-index">{{ index + 1 }}</div>
           <div>
             <h3 class="text-xl font-black tracking-tight text-slate-900">{{ step.title }}</h3>

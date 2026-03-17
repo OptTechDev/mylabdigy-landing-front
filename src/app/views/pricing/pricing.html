@@ -9,7 +9,7 @@
   <div class="grid gap-5 lg:grid-cols-3">
     @for (plan of pricingPlans(); track plan.name) {
       <article class="pricing-card rounded-[1.85rem] p-6" [class.pricing-card-featured]="plan.featured">
-        <div class="flex items-start justify-between gap-4">
+        <div class="flex flex-col items-start justify-between gap-4 sm:flex-row">
           <div>
             <p class="text-sm font-bold uppercase tracking-[0.22em]" [class.text-cyan-50]="plan.featured" [class.text-sky-500]="!plan.featured">
               {{ plan.name }}
@@ -56,8 +56,8 @@
   </div>
 
   <div class="glass-panel overflow-hidden rounded-[2rem] p-4 sm:p-6">
-    <div class="overflow-x-auto">
-      <table class="min-w-full border-separate border-spacing-y-3 text-left">
+    <div class="overflow-x-auto rounded-2xl">
+      <table class="min-w-[720px] border-separate border-spacing-y-3 text-left">
         <thead>
           <tr>
             <th class="px-4 py-3 text-sm font-bold uppercase tracking-[0.22em] text-sky-500">Capacidad</th>
