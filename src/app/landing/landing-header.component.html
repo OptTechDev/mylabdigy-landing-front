@@ -1,0 +1,21 @@
+<header class="glass-panel sticky top-4 z-30 flex items-center justify-between rounded-full px-4 py-3 sm:px-6">
+  <a href="#" class="flex items-center gap-3">
+    <div class="brand-mark flex h-11 w-11 items-center justify-center rounded-2xl">
+      <span class="text-lg font-black text-white">M</span>
+    </div>
+    <div>
+      <p class="text-lg font-black tracking-tight text-sky-700">MyLabDigi</p>
+      <p class="text-xs font-medium uppercase tracking-[0.28em] text-sky-500/80">Digital Lab Core</p>
+    </div>
+  </a>
+
+  <nav class="hidden items-center gap-7 lg:flex">
+    @for (item of navItems(); track item) {
+      <a class="text-sm font-semibold text-slate-600 transition hover:text-sky-600" [href]="'#' + item.toLowerCase()">
+        {{ item }}
+      </a>
+    }
+  </nav>
+
+  <button pButton type="button" label="Solicitar demo" class="cta-button hidden sm:inline-flex"></button>
+</header>

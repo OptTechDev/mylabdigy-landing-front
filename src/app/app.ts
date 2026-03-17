@@ -1,42 +1,24 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
-type ServiceCard = {
-  title: string;
-  description: string;
-  accent: string;
-};
-
-type PlatformStep = {
-  title: string;
-  description: string;
-};
-
-type Testimonial = {
-  name: string;
-  role: string;
-  quote: string;
-};
-
-type PricingPlan = {
-  name: string;
-  price: string;
-  audience: string;
-  summary: string;
-  features: string[];
-  featured?: boolean;
-};
-
-type ComparisonRow = {
-  label: string;
-  basic: string;
-  premium: string;
-  enterprise: string;
-};
+import { LandingBenefitsComponent } from './landing/landing-benefits.component';
+import { LandingContactComponent } from './landing/landing-contact.component';
+import { LandingFlowComponent } from './landing/landing-flow.component';
+import { LandingHeaderComponent } from './landing/landing-header.component';
+import { LandingHeroComponent } from './landing/landing-hero.component';
+import { ComparisonRow, PlatformStep, PricingPlan, ServiceCard, Testimonial } from './landing/landing.models';
+import { LandingPricingComponent } from './landing/landing-pricing.component';
+import { LandingServicesComponent } from './landing/landing-services.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ButtonModule],
+  imports: [
+    LandingHeaderComponent,
+    LandingHeroComponent,
+    LandingServicesComponent,
+    LandingFlowComponent,
+    LandingBenefitsComponent,
+    LandingPricingComponent,
+    LandingContactComponent
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -78,7 +60,7 @@ export class App {
     {
       title: 'Entrega resultados con confianza',
       description:
-        'Publica reporteria en Pdf y Csv, QR de verificación y accesos seguros para pacientes, médicos y personal autorizado.'
+        'Publica reportería en PDF y CSV, QR de verificación y accesos seguros para pacientes, médicos y personal autorizado.'
     }
   ];
 
@@ -141,41 +123,11 @@ export class App {
   ];
 
   readonly comparisonRows: ComparisonRow[] = [
-    {
-      label: 'Sucursales',
-      basic: '1',
-      premium: 'Hasta 3',
-      enterprise: 'A medida'
-    },
-    {
-      label: 'Usuarios',
-      basic: 'Hasta 5',
-      premium: 'Hasta 15',
-      enterprise: 'A medida'
-    },
-    {
-      label: 'Órdenes por mes',
-      basic: '800',
-      premium: '5.000',
-      enterprise: 'A medida'
-    },
-    {
-      label: 'QR de verificación',
-      basic: 'Sí',
-      premium: 'Sí',
-      enterprise: 'Sí'
-    },
-    {
-      label: 'Portal del paciente',
-      basic: 'Sí',
-      premium: 'Sí',
-      enterprise: 'Sí'
-    },
-    {
-      label: 'Auditoría',
-      basic: 'Base',
-      premium: 'Operativa',
-      enterprise: 'Avanzada'
-    }
+    { label: 'Sucursales', basic: '1', premium: 'Hasta 3', enterprise: 'A medida' },
+    { label: 'Usuarios', basic: 'Hasta 5', premium: 'Hasta 15', enterprise: 'A medida' },
+    { label: 'Órdenes por mes', basic: '800', premium: '5.000', enterprise: 'A medida' },
+    { label: 'QR de verificación', basic: 'Sí', premium: 'Sí', enterprise: 'Sí' },
+    { label: 'Portal del paciente', basic: 'Sí', premium: 'Sí', enterprise: 'Sí' },
+    { label: 'Auditoría', basic: 'Base', premium: 'Operativa', enterprise: 'Avanzada' }
   ];
 }

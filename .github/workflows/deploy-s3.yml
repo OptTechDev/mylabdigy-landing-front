@@ -15,9 +15,11 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name == 'main' && 'main' || (github.ref_name == 'develop' && 'develop' || ((github.ref_name == 'test' || github.ref_name == 'testing') && 'test')) }}
     env:
-      AWS_REGION: ${{ vars.AWS_REGION }}
-      AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,16 +44,16 @@ jobs:
 
           case "$BRANCH" in
             main)
-              echo "bucket=${{ vars.S3_BUCKET_MAIN }}" >> "$GITHUB_OUTPUT"
-              echo "distribution=${{ vars.CLOUDFRONT_DISTRIBUTION_ID_MAIN }}" >> "$GITHUB_OUTPUT"
+              echo "bucket=${{ secrets.S3_BUCKET_MAIN }}" >> "$GITHUB_OUTPUT"
+              echo "distribution=${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_MAIN }}" >> "$GITHUB_OUTPUT"
               ;;
             develop)
-              echo "bucket=${{ vars.S3_BUCKET_DEVELOP }}" >> "$GITHUB_OUTPUT"
-              echo "distribution=${{ vars.CLOUDFRONT_DISTRIBUTION_ID_DEVELOP }}" >> "$GITHUB_OUTPUT"
+              echo "bucket=${{ secrets.S3_BUCKET_DEVELOP }}" >> "$GITHUB_OUTPUT"
+              echo "distribution=${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_DEVELOP }}" >> "$GITHUB_OUTPUT"
               ;;
             test|testing)
-              echo "bucket=${{ vars.S3_BUCKET_TEST }}" >> "$GITHUB_OUTPUT"
-              echo "distribution=${{ vars.CLOUDFRONT_DISTRIBUTION_ID_TEST }}" >> "$GITHUB_OUTPUT"
+              echo "bucket=${{ secrets.S3_BUCKET_TEST }}" >> "$GITHUB_OUTPUT"
+              echo "distribution=${{ secrets.CLOUDFRONT_DISTRIBUTION_ID_TEST }}" >> "$GITHUB_OUTPUT"
               ;;
             *)
               echo "Unsupported branch: $BRANCH"
