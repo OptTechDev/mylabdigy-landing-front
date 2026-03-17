@@ -1,16 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
 @theme {
-    --font-display: "Poppins", "sans-serif";
-    --color-celeste-fuerte: #37A1CD;
-    --color-celeste-suave: #4DC0D7;
-    --color-verde-fuerte: #28ACA4;
-    --color-verde-suave: #2EC6B4;
-    --color-morado-fuerte: #726ACE;
-    --color-morado-suave: #9383F2;
-    --color-azul-fuerte: #405EAA;
-    --color-azul-suave: #607DC7;
-    --color-rosa-fuerte: #8157A3;
-    --color-rosa-suave: #B686CD;
+  --font-display: "Poppins", "Segoe UI", sans-serif;
+  --color-brand-950: #0c4a6e;
+  --color-brand-800: #1278b5;
+  --color-brand-600: #189fd8;
+  --color-brand-400: #37c4f2;
+  --color-mint-500: #17c7b6;
+  --color-mint-300: #98f0e4;
+  --color-surface-50: #f8feff;
+  --color-surface-100: #eef8ff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f4fbff;
+  color: #0f172a;
+  font-family: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
 }

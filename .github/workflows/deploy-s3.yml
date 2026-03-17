@@ -1,0 +1,84 @@
+name: Deploy Landing To S3
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - testing
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Resolve deployment target
+        id: target
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_REF_NAME}"
+
+          case "$BRANCH" in
+            main)
+              echo "bucket=${{ vars.S3_BUCKET_MAIN }}" >> "$GITHUB_OUTPUT"
+              echo "distribution=${{ vars.CLOUDFRONT_DISTRIBUTION_ID_MAIN }}" >> "$GITHUB_OUTPUT"
+              ;;
+            develop)
+              echo "bucket=${{ vars.S3_BUCKET_DEVELOP }}" >> "$GITHUB_OUTPUT"
+              echo "distribution=${{ vars.CLOUDFRONT_DISTRIBUTION_ID_DEVELOP }}" >> "$GITHUB_OUTPUT"
+              ;;
+            test|testing)
+              echo "bucket=${{ vars.S3_BUCKET_TEST }}" >> "$GITHUB_OUTPUT"
+              echo "distribution=${{ vars.CLOUDFRONT_DISTRIBUTION_ID_TEST }}" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "Unsupported branch: $BRANCH"
+              exit 1
+              ;;
+          esac
+
+      - name: Validate AWS configuration
+        shell: bash
+        run: |
+          test -n "$AWS_REGION" || { echo "Missing repository variable AWS_REGION"; exit 1; }
+          test -n "$AWS_ROLE_ARN" || { echo "Missing repository variable AWS_ROLE_ARN"; exit 1; }
+          test -n "${{ steps.target.outputs.bucket }}" || { echo "Missing bucket variable for branch ${GITHUB_REF_NAME}"; exit 1; }
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync dist/mylabdigy/browser "s3://${{ steps.target.outputs.bucket }}" --delete
+
+      - name: Invalidate CloudFront cache
+        if: ${{ steps.target.outputs.distribution != '' }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ steps.target.outputs.distribution }}" \
+            --paths "/*"
