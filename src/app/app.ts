@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { LandingBenefitsComponent } from './landing/landing-benefits.component';
-import { LandingContactComponent } from './landing/landing-contact.component';
-import { LandingFlowComponent } from './landing/landing-flow.component';
-import { LandingHeaderComponent } from './landing/landing-header.component';
-import { LandingHeroComponent } from './landing/landing-hero.component';
 import { ComparisonRow, PlatformStep, PricingPlan, ServiceCard, Testimonial } from './landing/landing.models';
-import { LandingPricingComponent } from './landing/landing-pricing.component';
-import { LandingServicesComponent } from './landing/landing-services.component';
+import { Header } from './views/header/header';
+import { Hero } from './views/hero/hero';
+import { Services } from './views/services/services';
+import { Flow } from './views/flow/flow';
+import { Benefits } from './views/benefits/benefits';
+import { Pricing } from './views/pricing/pricing';
+import { Contact } from './views/contact/contact';
 
 @Component({
   selector: 'app-root',
   imports: [
-    LandingHeaderComponent,
-    LandingHeroComponent,
-    LandingServicesComponent,
-    LandingFlowComponent,
-    LandingBenefitsComponent,
-    LandingPricingComponent,
-    LandingContactComponent
+    Header,
+    Hero,
+    Services,
+    Flow,
+    Benefits,
+    Pricing,
+    Contact
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
