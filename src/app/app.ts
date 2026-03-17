@@ -78,7 +78,7 @@ export class App {
     {
       title: 'Entrega resultados con confianza',
       description:
-        'Publica PDFs, QR de verificación y accesos seguros para pacientes, médicos y personal autorizado.'
+        'Publica reporteria en Pdf y Csv, QR de verificación y accesos seguros para pacientes, médicos y personal autorizado.'
     }
   ];
 
